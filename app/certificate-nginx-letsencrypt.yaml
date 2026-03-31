@@ -1,0 +1,13 @@
+# certificate-nginx-letsencrypt.yaml
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: app-tls
+  namespace: default
+spec:
+  secretName: app-tls
+  issuerRef:
+    name: letsencrypt-prod
+    kind: ClusterIssuer
+  dnsNames:
+    - app.exemplo.com

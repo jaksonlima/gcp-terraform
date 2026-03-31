@@ -1,0 +1,72 @@
+# app-nginx-letsencrypt.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: demo-app
+  namespace: default
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: demo
+  template:
+    metadata:
+      labels:
+        app: demo
+    spec:
+      containers:
+        - name: app
+          image: hashicorp/http-echo:latest
+          args:
+            - "-text=NGINX Gateway Fabric + Let's Encrypt"
+          ports:
+            - containerPort: 5678
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: demo-app
+  namespace: default
+spec:
+  selector:
+    app: demo
+  ports:
+    - port: 80
+      targetPort: 5678
+---
+# Redirect HTTP → HTTPS
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: demo-redirect
+  namespace: default
+spec:
+  parentRefs:
+    - name: nginx-gateway
+      sectionName: http
+  rules:
+    - filters:
+        - type: RequestRedirect
+          requestRedirect:
+            scheme: https
+            statusCode: 301
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: demo-app
+  namespace: default
+spec:
+  parentRefs:
+    - name: nginx-gateway
+      sectionName: https
+  hostnames:
+    - app.exemplo.com
+  rules:
+    - matches:
+        - path:
+            type: PathPrefix
+            value: /
+      backendRefs:
+        - name: demo-app
+          port: 80

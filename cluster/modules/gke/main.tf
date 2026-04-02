@@ -30,8 +30,8 @@ resource "google_container_cluster" "this" {
   name     = "${var.prefix}-gke"
   location = var.gcp_region
 
-  network    = google_compute_network.new-vpc.name
-  subnetwork = google_compute_subnetwork.primary.name
+  network    = "${var.new-vpc-name}"
+  subnetwork = "${var.subnetwork-primary-name}"
 
   remove_default_node_pool = true
   initial_node_count       = 1
@@ -53,7 +53,6 @@ resource "google_container_cluster" "this" {
 
   depends_on = [
     google_project_service.container,
-    google_compute_subnetwork.primary,
   ]
 }
 

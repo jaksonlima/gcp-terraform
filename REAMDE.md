@@ -82,7 +82,7 @@ terraform apply
 
 Precisa de [`gcloud`](https://cloud.google.com/sdk/docs/install), do **plugin de autenticação GKE** e permissão **Kubernetes Engine Cluster Viewer** (ou superior) no projeto.
 
-**Plugin (obrigatório em clusters recentes):** sem isto o `kubectl` mostra *gke-gcloud-auth-plugin was not found*. [Documentação](https://cloud.google.com/kubernetes-engine/docs/how-to/cluster-access-for-kubectl#install_plugin).
+**Plugin (obrigatório em clusters recentes):** sem isto o `kubectl` mostra _gke-gcloud-auth-plugin was not found_. [Documentação](https://cloud.google.com/kubernetes-engine/docs/how-to/cluster-access-for-kubectl#install_plugin).
 
 - **Ubuntu/Debian (gcloud instalado com `apt`)** — o gestor de componentes do `gcloud` costuma estar desligado; use o pacote:
 
@@ -134,8 +134,3 @@ gcloud container clusters get-credentials NOME_DO_CLUSTER \
 ```bash
 terraform destroy
 ```
-
-
-export PROJECT_ID="default-test-481600"
-export CLUSTER_NAME="cluster-gke"
-export ZONE="southamerica-east1"

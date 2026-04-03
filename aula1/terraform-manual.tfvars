@@ -1,0 +1,1 @@
+content = "1 vindo do terraform-manual.tfvars"

@@ -7,8 +7,8 @@
 **/.terraform.tfstate.lock.info
 
 # Terraform variable files that may contain secrets
-**/*.tfvars
-**/*.tfvars.json
+# **/*.tfvars
+# **/*.tfvars.json
 
 # Terraform plan output files
 **/*.tfplan

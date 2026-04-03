@@ -10,6 +10,10 @@ terraform {
       version = "~> 2.0"
     }
   }
+
+  backend "gcs" {
+    bucket = "cluster-terraform-state-020420262154"
+  }
 }
 
 provider "google" {
